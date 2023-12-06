@@ -31,6 +31,17 @@ services:
       MYSQL_PASSWORD: test
     volumes:
       - mysql_data:/var/lib/mysql
+  
+  py_db:
+    build: ./py_db
+    depends_on:
+      - mysql
+      - kafka
+    environment:
+      KAFKA_BROKER: kafka:9092
+      MYSQL_HOST: mysql
+      MYSQL_DATABASE: db
+      MYSQL_ROOT_PASSWORD: root
 
 volumes:
   mysql_data:
